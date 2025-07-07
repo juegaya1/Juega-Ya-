@@ -7,7 +7,7 @@
     <!-- Font Awesome para los logos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Paleta de colores: negro, azul y blanco claro */
+        /* Nueva paleta de colores: negro, azul y blanco claro */
         :root {
             --color-primary: #121826;   /* Azul oscuro casi negro */
             --color-secondary: #0d6efd; /* Azul brillante */
@@ -865,10 +865,8 @@
         <div class="header-top">
             <div class="container">
                 <div class="header-top-content">
-                    <div class="date-info">
-                        <span>📅 Domingo, 6 de Julio 2025</span>
-                        <span>|</span>
-                        <span>🔥 Últimos tutoriales disponibles</span>
+                    <div class="date-info" id="currentDateTime">
+                        <!-- La fecha se actualizará automáticamente con JavaScript -->
                     </div>
                     <div class="social-top">
                         <a href="https://youtube.com/@juegayaone?si=qMAWZ1NPHTPpex" target="_blank" title="YouTube">
@@ -1131,7 +1129,34 @@
     </footer>
 
     <script>
-        // Base de datos de tutoriales (puedes expandirla con más contenido)
+        // Función para actualizar fecha y hora
+        function updateDateTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            };
+            
+            const formatter = new Intl.DateTimeFormat('es-ES', options);
+            const formattedDate = formatter.format(now);
+            
+            document.getElementById('currentDateTime').innerHTML = `
+                <span>📅 ${formattedDate}</span>
+                <span>|</span>
+                <span>🔥 Últimos tutoriales disponibles</span>
+            `;
+        }
+
+        // Actualizar inmediatamente y luego cada minuto
+        updateDateTime();
+        setInterval(updateDateTime, 60000);
+
+        // Base de datos de tutoriales
         const tutorialsDatabase = [
             {
                 title: "CapCut - Editor de Video",
